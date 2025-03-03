@@ -39,4 +39,12 @@ df["Unemployment, total (% of total labor force)"].fillna(global_unemployment_av
 # Check if all missing values are handled
 print(df["Unemployment, total (% of total labor force)"].isnull().sum())  # Should be 0
 
+# Check if GDP_x and GDP_y are the same
+identical_gdp = (df["GDP (current US$)_x"] == df["GDP (current US$)_y"]).all()
+identical_growth = (df["GDP growth (annual %)_x"] == df["GDP growth (annual %)_y"]).all()
+
+print("Are GDP_x and GDP_y identical? ", identical_gdp)
+print("Are GDP growth_x and GDP growth_y identical? ", identical_growth)
+
+
 
