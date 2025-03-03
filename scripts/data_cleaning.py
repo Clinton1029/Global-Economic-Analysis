@@ -7,3 +7,7 @@ df = pd.read_csv(file_path)
 # Display the first 5 rows
 print("🔹 First 5 rows of the dataset:")
 print(df.head())
+
+# Display basic information
+print("\n🔹 Dataset Info:")
+print(df.info())
