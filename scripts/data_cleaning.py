@@ -29,4 +29,14 @@ df["Personal remittances, received (% of GDP)"].fillna(global_median_remittance,
 print(df["Personal remittances, received (% of GDP)"].isnull().sum())  # Should be 0
 
 
+# Fill missing unemployment values
+df["Unemployment, total (% of total labor force)"] = df.groupby("Country Name")["Unemployment, total (% of total labor force)"].transform(lambda x: x.fillna(x.mean()))
+
+# Fill remaining missing values with global average
+global_unemployment_avg = df["Unemployment, total (% of total labor force)"].mean()
+df["Unemployment, total (% of total labor force)"].fillna(global_unemployment_avg, inplace=True)
+
+# Check if all missing values are handled
+print(df["Unemployment, total (% of total labor force)"].isnull().sum())  # Should be 0
+
 
