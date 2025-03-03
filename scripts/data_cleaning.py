@@ -47,4 +47,16 @@ print("Are GDP_x and GDP_y identical? ", identical_gdp)
 print("Are GDP growth_x and GDP growth_y identical? ", identical_growth)
 
 
+# Interpolate missing GDP values within each country group
+df["GDP (current US$)_x"] = df.groupby("Country Name")["GDP (current US$)_x"].transform(lambda x: x.interpolate())
 
+# Fill remaining GDP missing values with the country’s median GDP
+df["GDP (current US$)_x"].fillna(df.groupby("Country Name")["GDP (current US$)_x"].transform("median"), inplace=True)
+
+# Fill any remaining missing GDP values with the global median GDP
+global_gdp_median = df["GDP (current US$)_x"].median()
+df["GDP (current US$)_x"].fillna(global_gdp_median, inplace=True)
+
+# Display missing values after handling GDP data
+print("Missing values after handling GDP data:")
+print(df[["GDP (current US$)_x"]].isnull().sum())
