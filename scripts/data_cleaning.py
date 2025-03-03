@@ -11,3 +11,7 @@ print(df.head())
 # Display basic information
 print("\n🔹 Dataset Info:")
 print(df.info())
+
+# Check for missing values
+print("\n🔹 Missing Values:")
+print(df.isnull().sum())
