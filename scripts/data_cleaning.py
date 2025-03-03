@@ -60,3 +60,34 @@ df["GDP (current US$)_x"].fillna(global_gdp_median, inplace=True)
 # Display missing values after handling GDP data
 print("Missing values after handling GDP data:")
 print(df[["GDP (current US$)_x"]].isnull().sum())
+
+
+# Interpolate within each country
+df["GDP growth (annual %)_x"] = df.groupby("Country Name")["GDP growth (annual %)_x"].transform(lambda x: x.interpolate())
+
+# Fill remaining missing values with the global mean
+global_gdp_growth_mean_x = df["GDP growth (annual %)_x"].mean()
+df["GDP growth (annual %)_x"].fillna(global_gdp_growth_mean_x, inplace=True)
+
+
+# Interpolate within each country
+df["GDP (current US$)_y"] = df.groupby("Country Name")["GDP (current US$)_y"].transform(lambda x: x.interpolate())
+
+# Fill remaining missing values with the country’s median GDP
+df["GDP (current US$)_y"].fillna(df.groupby("Country Name")["GDP (current US$)_y"].transform("median"), inplace=True)
+
+# If any missing values remain, fill them with the global median GDP
+global_gdp_median_y = df["GDP (current US$)_y"].median()
+df["GDP (current US$)_y"].fillna(global_gdp_median_y, inplace=True)
+
+
+# Interpolate within each country
+df["GDP growth (annual %)_y"] = df.groupby("Country Name")["GDP growth (annual %)_y"].transform(lambda x: x.interpolate())
+
+# Fill remaining missing values with the global mean
+global_gdp_growth_mean_y = df["GDP growth (annual %)_y"].mean()
+df["GDP growth (annual %)_y"].fillna(global_gdp_growth_mean_y, inplace=True)
+
+
+print("Missing values after handling GDP and Growth columns:")
+print(df[["GDP growth (annual %)_x", "GDP (current US$)_y", "GDP growth (annual %)_y"]].isnull().sum())
