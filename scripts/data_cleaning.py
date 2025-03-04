@@ -101,3 +101,15 @@ print(df.dtypes)
 
 print(df.info())  # Check overall structure
 print(df.describe())  # Get statistical summary
+
+# saving the clean data
+
+# Save the cleaned data to CSV
+df.to_csv("cleaned_data.csv", index=False)
+
+# Save the cleaned data to Excel
+df.to_excel("cleaned_data.xlsx", index=False, engine="openpyxl")
+
+print("Cleaned data saved successfully in CSV and Excel formats!")
+
+

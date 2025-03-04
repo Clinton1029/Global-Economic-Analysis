@@ -1,13 +1,15 @@
 import pandas as pd
 
-# Load the dataset
-file_path = "../data/world_economic_indicators.csv"  # Change this to the correct file path
-df = pd.read_csv(file_path)
+# Load the cleaned data
+df = pd.read_csv(r"C:\Users\Hp\Documents\Global-Economic-Analysis\data\cleaned_data.csv")
 
 # Exploratory Data analysis
 
-# 1. Basic Information
-print("Dataset Info:")
+# Display basic info about the dataset
 print(df.info())
-print("\nSummary Statistics:")
-print(df.describe())
+
+# Check the first few rows
+print(df.head())
+
+# Check the number of rows and columns
+print("Dataset shape:", df.shape)
