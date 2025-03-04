@@ -25,3 +25,10 @@ print("Missing Values:\n", df.isnull().sum())
 
 # Check for duplicate rows
 print("Duplicate Rows:", df.duplicated().sum())
+
+
+# Summary statistics of numerical columns
+print(df.describe())
+
+# Summary statistics of categorical columns
+print(df.describe(include="object"))
