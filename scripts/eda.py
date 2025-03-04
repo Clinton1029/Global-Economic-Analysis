@@ -42,3 +42,18 @@ print("Unique Country Codes:", df["Country Code"].nunique())
 
 # List all unique country names
 print(df["Country Name"].unique())
+
+
+# Find outliers using the interquartile range (IQR)
+Q1 = df["GDP (current US$)_x"].quantile(0.25)
+Q3 = df["GDP (current US$)_x"].quantile(0.75)
+IQR = Q3 - Q1
+
+# Define lower and upper bounds
+lower_bound = Q1 - (1.5 * IQR)
+upper_bound = Q3 + (1.5 * IQR)
+
+# Count potential outliers
+outliers = df[(df["GDP (current US$)_x"] < lower_bound) | (df["GDP (current US$)_x"] > upper_bound)]
+print(f"Potential Outliers in GDP: {outliers.shape[0]}")
+
