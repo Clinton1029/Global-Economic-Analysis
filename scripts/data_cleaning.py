@@ -92,5 +92,12 @@ df["GDP growth (annual %)_y"].fillna(global_gdp_growth_mean_y, inplace=True)
 print("Missing values after handling GDP and Growth columns:")
 print(df[["GDP growth (annual %)_x", "GDP (current US$)_y", "GDP growth (annual %)_y"]].isnull().sum())
 
-
+# check duplicated rows
 print("Duplicate Rows:", df.duplicated().sum())
+
+# check the data type
+print(df.dtypes)
+
+
+print(df.info())  # Check overall structure
+print(df.describe())  # Get statistical summary
