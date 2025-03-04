@@ -57,3 +57,13 @@ upper_bound = Q3 + (1.5 * IQR)
 outliers = df[(df["GDP (current US$)_x"] < lower_bound) | (df["GDP (current US$)_x"] > upper_bound)]
 print(f"Potential Outliers in GDP: {outliers.shape[0]}")
 
+# Select only numeric columns
+numeric_df = df.select_dtypes(include=["number"])
+
+# Compute correlation matrix
+correlation_matrix = numeric_df.corr()
+
+# Display correlation matrix
+print("Correlation Matrix:\n", correlation_matrix)
+
+
