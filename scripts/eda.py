@@ -5,6 +5,10 @@ df = pd.read_csv(r"C:\Users\Hp\Documents\Global-Economic-Analysis\data\cleaned_d
 
 # Exploratory Data analysis
 
+
+#Check the structure, shape, and basic details of the datase 
+ 
+
 # Display basic info about the dataset
 print(df.info())
 
