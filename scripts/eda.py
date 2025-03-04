@@ -17,3 +17,7 @@ print(df.head())
 
 # Check the number of rows and columns
 print("Dataset shape:", df.shape)
+
+
+# Count missing values per column
+print("Missing Values:\n", df.isnull().sum())
