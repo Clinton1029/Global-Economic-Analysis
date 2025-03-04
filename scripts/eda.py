@@ -21,3 +21,7 @@ print("Dataset shape:", df.shape)
 
 # Count missing values per column
 print("Missing Values:\n", df.isnull().sum())
+
+
+# Check for duplicate rows
+print("Duplicate Rows:", df.duplicated().sum())
