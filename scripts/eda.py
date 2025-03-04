@@ -6,3 +6,8 @@ df = pd.read_csv(file_path)
 
 # Exploratory Data analysis
 
+# 1. Basic Information
+print("Dataset Info:")
+print(df.info())
+print("\nSummary Statistics:")
+print(df.describe())
