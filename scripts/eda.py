@@ -32,3 +32,13 @@ print(df.describe())
 
 # Summary statistics of categorical columns
 print(df.describe(include="object"))
+
+
+# Unique country names
+print("Unique Countries:", df["Country Name"].nunique())
+
+# Unique country codes
+print("Unique Country Codes:", df["Country Code"].nunique())
+
+# List all unique country names
+print(df["Country Name"].unique())
