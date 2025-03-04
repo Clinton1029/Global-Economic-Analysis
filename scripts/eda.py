@@ -67,3 +67,11 @@ correlation_matrix = numeric_df.corr()
 print("Correlation Matrix:\n", correlation_matrix)
 
 
+# Top 10 countries with the most records
+print(df["Country Name"].value_counts().head(10))
+
+# Top 10 years with the most data
+print(df["Year"].value_counts().head(10))
+
+
+
