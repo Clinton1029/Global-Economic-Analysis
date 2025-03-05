@@ -29,3 +29,16 @@ def detect_outliers(df, column):
 # Identify outliers in GDP (current US$)_x
 outliers_gdp = detect_outliers(numerical_df, "GDP (current US$)_x")
 print(f"Number of Outliers in GDP: {len(outliers_gdp)}")
+
+# --- 4. Feature Engineering (if needed) ---
+if "GDP (current US$)_x" in df.columns and "Population" in df.columns:
+    df["GDP per Capita"] = df["GDP (current US$)_x"] / df["Population"]
+
+ # Save processed data as CSV
+df.to_csv("data/processed_data.csv", index=False)
+
+# Save processed data as Excel
+df.to_excel("data/processed_data.xlsx", index=False)
+
+print("Processed data saved successfully as CSV and Excel in the 'data' folder!")
+   
