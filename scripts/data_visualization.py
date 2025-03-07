@@ -129,24 +129,21 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("data/processed_data.csv")
 
 
-# Select relevant columns for GDP and Unemployment
-df_scatter = df[["GDP (current US$)_x", "Unemployment, total (% of total labor force)", "Country Name"]].dropna()
+# Use the correct GDP Growth Rate column
+gdp_growth_column = "GDP growth (annual %)_x"
 
-# Rename columns for clarity
-df_scatter.rename(columns={"GDP (current US$)_x": "GDP", 
-                           "Unemployment, total (% of total labor force)": "Unemployment"}, inplace=True)
+# Drop NaN values in GDP Growth Rate
+df = df.dropna(subset=[gdp_growth_column])
 
-# Create scatter plot
+# Plot Histogram
 plt.figure(figsize=(10, 6))
-plt.scatter(df_scatter["GDP"], df_scatter["Unemployment"], alpha=0.6, edgecolors="k")
+plt.hist(df[gdp_growth_column], bins=20, color="royalblue", edgecolor="black", alpha=0.7)
 
-# Add labels and title
-plt.xlabel("GDP (Current US$)")
-plt.ylabel("Unemployment Rate (%)")
-plt.title("Relationship Between GDP and Unemployment")
+# Dynamic Title
+plt.title(f"Distribution of {gdp_growth_column}", fontsize=14, fontweight="bold")
+plt.xlabel("GDP Growth Rate (%)", fontsize=12)
+plt.ylabel("Number of Countries", fontsize=12)
+plt.grid(axis="y", linestyle="--", alpha=0.7)
 
-# Set log scale for better visualization (optional, since GDP values vary widely)
-plt.xscale("log")
-
-# Show plot
+# Show the plot
 plt.show()
