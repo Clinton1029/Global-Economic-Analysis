@@ -118,7 +118,7 @@ plt.show()
 
 
 
-#(3) Scatter plot of GDP vs. Remittances
+#(4) Histogram Showing the distribution of GDP Growth rates
 
 import pandas as pd
 import numpy as np
@@ -146,4 +146,66 @@ plt.ylabel("Number of Countries", fontsize=12)
 plt.grid(axis="y", linestyle="--", alpha=0.7)
 
 # Show the plot
+plt.show()
+
+
+#(5) Box plot of GDP growth by region
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Load the processed data
+df = pd.read_csv("data/processed_data.csv")
+
+
+# Sample mapping of countries to regions (This should ideally come from external data or user input)
+# For demonstration, a few mappings are added; in practice, this should be more comprehensive.
+country_to_region = {
+    "United States": "North America",
+    "Canada": "North America",
+    "Mexico": "North America",
+    "Germany": "Europe",
+    "France": "Europe",
+    "United Kingdom": "Europe",
+    "China": "Asia",
+    "India": "Asia",
+    "Japan": "Asia",
+    "Brazil": "South America",
+    "Argentina": "South America",
+    "South Africa": "Africa",
+    "Nigeria": "Africa",
+    "Australia": "Oceania"
+}
+
+# Create a new column "Region" based on the mapping
+df["Region"] = df["Country Name"].map(country_to_region)
+
+# Filter only necessary columns and drop NaN values
+df_boxplot = df[["Region", "GDP growth (annual %)_x"]].dropna()
+
+# Rename column for consistency
+df_boxplot = df_boxplot.rename(columns={"GDP growth (annual %)_x": "GDP Growth (%)"})
+
+# Get unique regions
+regions = df_boxplot["Region"].dropna().unique()
+
+# Create the box plot
+plt.figure(figsize=(12, 6))
+plt.boxplot(
+    [df_boxplot[df_boxplot["Region"] == region]["GDP Growth (%)"] for region in regions],
+    labels=regions
+)
+
+# Rotate x-axis labels for better readability
+plt.xticks(rotation=45, ha="right")
+
+# Titles and labels
+plt.title("GDP Growth Distribution by Region")
+plt.xlabel("Region")
+plt.ylabel("GDP Growth (%)")
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+
+# Show plot
 plt.show()
