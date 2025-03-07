@@ -76,6 +76,8 @@ plot_trend_matplotlib_dynamic("Personal remittances, received (% of GDP)", "Remi
 
 
 
+# Bar graph of countries with the highest and lowest unemployment rates
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
