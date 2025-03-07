@@ -115,3 +115,38 @@ for index, value in enumerate(df_unemployment["Unemployment, total (% of total l
 plt.gca().invert_yaxis()  # Invert y-axis for better readability
 plt.grid(axis="x", linestyle="--", alpha=0.6)
 plt.show()
+
+
+
+#(3) Scatter plot of GDP vs. Remittances
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Load the processed data
+df = pd.read_csv("data/processed_data.csv")
+
+
+# Select relevant columns for GDP and Unemployment
+df_scatter = df[["GDP (current US$)_x", "Unemployment, total (% of total labor force)", "Country Name"]].dropna()
+
+# Rename columns for clarity
+df_scatter.rename(columns={"GDP (current US$)_x": "GDP", 
+                           "Unemployment, total (% of total labor force)": "Unemployment"}, inplace=True)
+
+# Create scatter plot
+plt.figure(figsize=(10, 6))
+plt.scatter(df_scatter["GDP"], df_scatter["Unemployment"], alpha=0.6, edgecolors="k")
+
+# Add labels and title
+plt.xlabel("GDP (Current US$)")
+plt.ylabel("Unemployment Rate (%)")
+plt.title("Relationship Between GDP and Unemployment")
+
+# Set log scale for better visualization (optional, since GDP values vary widely)
+plt.xscale("log")
+
+# Show plot
+plt.show()
