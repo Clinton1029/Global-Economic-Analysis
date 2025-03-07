@@ -73,3 +73,41 @@ plot_trend_matplotlib_dynamic("Unemployment, total (% of total labor force)", "U
 # Plot Remittances Trends
 plot_trend_matplotlib_dynamic("Personal remittances, received (% of GDP)", "Remittances (% of GDP)")
 
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Load the processed data
+df = pd.read_csv("data/processed_data.csv")
+
+
+# Select the most recent year (2022) for comparison
+year_selected = 2022
+df_year = df[df["Year"] == year_selected]
+
+# Identify the highest and lowest unemployment rates
+top_unemployment = df_year.nlargest(5, "Unemployment, total (% of total labor force)")
+low_unemployment = df_year.nsmallest(5, "Unemployment, total (% of total labor force)")
+
+# Combine data
+df_unemployment = pd.concat([top_unemployment, low_unemployment])
+
+# Plot bar chart
+plt.figure(figsize=(12, 6))
+plt.barh(df_unemployment["Country Name"], df_unemployment["Unemployment, total (% of total labor force)"], color=["red"]*5 + ["green"]*5)
+
+plt.xlabel("Unemployment Rate (%)", fontsize=12)
+plt.ylabel("Country", fontsize=12)
+plt.title(f"Highest & Lowest Unemployment Rates by Country ({year_selected})", fontsize=14, fontweight="bold")
+
+# Annotate bars with exact values
+for index, value in enumerate(df_unemployment["Unemployment, total (% of total labor force)"]):
+    plt.text(value + 0.2, index, f"{value:.2f}%", fontsize=10, verticalalignment="center")
+
+plt.gca().invert_yaxis()  # Invert y-axis for better readability
+plt.grid(axis="x", linestyle="--", alpha=0.6)
+plt.show()
