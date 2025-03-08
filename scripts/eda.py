@@ -1,77 +1,92 @@
 import pandas as pd
+import logging
 
-# Load the cleaned data
-df = pd.read_csv(r"C:\Users\Hp\Documents\Global-Economic-Analysis\data\cleaned_data.csv")
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Exploratory Data analysis
+def perform_eda(df):
+    """Performs exploratory data analysis on the dataset."""
+    
+    # Display basic info about the dataset
+    logging.info("\n🔹 Dataset Information:")
+    logging.info(df.info())
 
+    # Check the first few rows
+    logging.info("\n🔹 First Few Rows:")
+    logging.info(df.head())
 
-#Check the structure, shape, and basic details of the datase 
- 
+    # Check the number of rows and columns
+    logging.info("\n🔹 Dataset Shape: %s", df.shape)
 
-# Display basic info about the dataset
-print(df.info())
+    # Count missing values per column
+    logging.info("\n🔹 Missing Values:\n%s", df.isnull().sum())
 
-# Check the first few rows
-print(df.head())
+    # Check for duplicate rows
+    logging.info("\n🔹 Duplicate Rows: %d", df.duplicated().sum())
 
-# Check the number of rows and columns
-print("Dataset shape:", df.shape)
+    # Summary statistics of numerical columns
+    logging.info("\n🔹 Summary Statistics (Numerical Columns):")
+    logging.info(df.describe())
 
+    # Summary statistics of categorical columns
+    logging.info("\n🔹 Summary Statistics (Categorical Columns):")
+    logging.info(df.describe(include="object"))
 
-# Count missing values per column
-print("Missing Values:\n", df.isnull().sum())
+    # Unique country names
+    logging.info("\n🔹 Unique Countries: %d", df["Country Name"].nunique())
 
+    # Unique country codes
+    logging.info("\n🔹 Unique Country Codes: %d", df["Country Code"].nunique())
 
-# Check for duplicate rows
-print("Duplicate Rows:", df.duplicated().sum())
+    # List all unique country names
+    logging.info("\n🔹 Unique Country Names:")
+    logging.info(df["Country Name"].unique())
 
+    # Find outliers using the interquartile range (IQR)
+    Q1 = df["GDP (current US$)_x"].quantile(0.25)
+    Q3 = df["GDP (current US$)_x"].quantile(0.75)
+    IQR = Q3 - Q1
 
-# Summary statistics of numerical columns
-print(df.describe())
+    # Define lower and upper bounds
+    lower_bound = Q1 - (1.5 * IQR)
+    upper_bound = Q3 + (1.5 * IQR)
 
-# Summary statistics of categorical columns
-print(df.describe(include="object"))
+    # Count potential outliers
+    outliers = df[(df["GDP (current US$)_x"] < lower_bound) | (df["GDP (current US$)_x"] > upper_bound)]
+    logging.info(f"\n🔹 Potential Outliers in GDP: {outliers.shape[0]}")
 
+    # Select only numeric columns
+    numeric_df = df.select_dtypes(include=["number"])
 
-# Unique country names
-print("Unique Countries:", df["Country Name"].nunique())
+    # Compute correlation matrix
+    correlation_matrix = numeric_df.corr()
 
-# Unique country codes
-print("Unique Country Codes:", df["Country Code"].nunique())
+    # Display correlation matrix
+    logging.info("\n🔹 Correlation Matrix:\n%s", correlation_matrix)
 
-# List all unique country names
-print(df["Country Name"].unique())
+    # Top 10 countries with the most records
+    logging.info("\n🔹 Top 10 Countries with Most Records:")
+    logging.info(df["Country Name"].value_counts().head(10))
 
-
-# Find outliers using the interquartile range (IQR)
-Q1 = df["GDP (current US$)_x"].quantile(0.25)
-Q3 = df["GDP (current US$)_x"].quantile(0.75)
-IQR = Q3 - Q1
-
-# Define lower and upper bounds
-lower_bound = Q1 - (1.5 * IQR)
-upper_bound = Q3 + (1.5 * IQR)
-
-# Count potential outliers
-outliers = df[(df["GDP (current US$)_x"] < lower_bound) | (df["GDP (current US$)_x"] > upper_bound)]
-print(f"Potential Outliers in GDP: {outliers.shape[0]}")
-
-# Select only numeric columns
-numeric_df = df.select_dtypes(include=["number"])
-
-# Compute correlation matrix
-correlation_matrix = numeric_df.corr()
-
-# Display correlation matrix
-print("Correlation Matrix:\n", correlation_matrix)
-
-
-# Top 10 countries with the most records
-print(df["Country Name"].value_counts().head(10))
-
-# Top 10 years with the most data
-print(df["Year"].value_counts().head(10))
-
+    # Top 10 years with the most data
+    logging.info("\n🔹 Top 10 Years with Most Data:")
+    logging.info(df["Year"].value_counts().head(10))
 
 
+def run():
+    """Runs EDA when script is executed directly."""
+    file_path = r"C:\Users\Hp\Documents\Global-Economic-Analysis\data\cleaned_data.csv"
+    
+    try:
+        df = pd.read_csv(file_path)
+        logging.info("\n✅ Successfully loaded cleaned data.")
+        perform_eda(df)
+        logging.info("\n✅ EDA Completed Successfully!")
+    except FileNotFoundError:
+        logging.error(f"\n❌ Error: File not found at {file_path}. Please check the path.")
+    except Exception as e:
+        logging.error(f"\n❌ An unexpected error occurred: {e}")
+
+
+if __name__ == "__main__":
+    run()
