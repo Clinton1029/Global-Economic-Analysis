@@ -1,7 +1,7 @@
 import pandas as pd
 
-# Load the dataset
-file_path = "../data/world_economic_indicators.csv"  # Change this to the correct file path
+file_path = r"C:\Users\Hp\Documents\Global-Economic-Analysis\data\world_economic_indicators.csv"
+
 df = pd.read_csv(file_path)
 
 # Display the first 5 rows
@@ -111,5 +111,4 @@ df.to_csv("cleaned_data.csv", index=False)
 df.to_excel("cleaned_data.xlsx", index=False, engine="openpyxl")
 
 print("Cleaned data saved successfully in CSV and Excel formats!")
-
 
