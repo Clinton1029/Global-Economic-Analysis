@@ -20,17 +20,6 @@ This project analyzes global economic indicators, such as GDP growth, unemployme
 - **Logging** for tracking the workflow
 - **Git** for version control
 
-## Project Structure
-
-
-│── data/ # Raw and cleaned datasets │── notebooks/ # Jupyter notebooks for analysis │── scripts/ │ │── data_cleaning.py # Cleans and preprocesses the dataset │ │── data_analysis.py # Performs statistical analysis & calculations │ │── data_visualization.py # Generates visualizations & graphs │ │── eda.py # Exploratory Data Analysis (EDA) │ │── main.py # Runs the entire project workflow │── README.md # Project documentation
-
-
-## Setup & Usage
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/Global-Economic-Analysis.git
-   cd Global-Economic-Analysis
 
 ## Project Structure
 ```
