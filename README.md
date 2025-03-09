@@ -3,7 +3,7 @@
 ## Overview
 This project analyzes global economic indicators, such as GDP growth, unemployment rates, and personal remittances, to identify trends and correlations across different regions and countries. The project follows a structured workflow for data processing, analysis, and visualization.
 
-## Feature
+## Features
 - **Data Cleaning:** Preprocessing and handling missing values.
 - **Exploratory Data Analysis (EDA):** Summarizing datasets and visualizing distributions.
 - **Statistical Analysis:** Correlation and trend identification.
